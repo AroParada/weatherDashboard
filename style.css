@@ -1,0 +1,48 @@
+#topTitle {
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+#detailDisplay {
+  background: #f8f9fa;
+  margin-top: 10px;
+}
+#fiveDayForecast {
+  background: #f8f9fa;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+#forecastDisplay {
+  max-width: 100%;
+}
+#forecastRow {
+  margin: 1px;
+}
+
+.metrics {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.forecastBox {
+  display: flex;
+  background-color: #007bff !important;
+  color: white;
+  width: 190px;
+  margin-bottom: 30px;
+}
+.day {
+  margin-right: 30px;
+}
+
+#weatherCardRow {
+  display: flex;
+  flex-flow: row wrap;
+  align-content: space-between;
+}
