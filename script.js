@@ -11,25 +11,25 @@ var cityLongited = "";
 var cityLatitude = "";
 var savedSearches = ["New York City", "Boston", "Los Angeles", "San Francisco", "Chicago"];
 
-// button click
-$("#button-addon2").on("click" , function(event) {
-
-    writeToLocalStorage();
-    loadSavedSearches();
-    getCurrentWeather();
-    getFiveDayForcast();
-
-});
 // history clicked
 $("#searchhistory").on("click", function(event) {
-
+    
     searchCity = event.target.innerHTML
     console.log(searchCity);
     localStorage.setItem("searchCity", searchCity);
     loadSavedSearches();
     getCurrentWeather();
     getFiveDayForcast();
+    
+});
 
+// button click
+    $("#button-addon2").on("click" , function(event) {
+    
+        writeToLocalStorage();
+        loadSavedSearches();
+        getCurrentWeather();
+        getFiveDayForcast();
 });
 
 
@@ -149,37 +149,41 @@ function displayCurrentWeather() {
 
 }
 
-//display UV Index
-function displayUVIndex() {
- 
-    $("#uvIndex").empty();
-    
-    var uvIndexCheck = currentUVIndexObj.value;
-    var uvIndexLabel = $("<h6>").text("UV Index:").attr("id", "uvIndexTxt");
-    var uvIndex = $("<h6>").text(currentUVIndexObj.value).attr("id", "uvIndexTxt");
-    var uvIndexEl = $("<div>").attr("class", "card uvIndexBox").html(uvIndex);
-    if (uvIndexCheck < 3) {
-        $(uvIndexEl).attr("id", "uvLow")
-    } else if (uvIndexCheck >= 3 && uvIndexCheck < 6) {
-        $(uvIndexEl).attr("id", "uvMod")
-
-    } else if (uvIndexCheck >= 6 && uvIndexCheck < 8 ) {
-        $(uvIndexEl).attr("id", "uvHigh")
-        
-
-    } else if (uvIndexCheck >= 8 && uvIndexCheck < 11) {
-        $(uvIndexEl).attr("id", "uvVryHigh")
-
-    } else if (uvIndexCheck >= 11) {
-        $(uvIndexEl).attr("id", "uvExtrm")
-
-    }
-    // $("#uvIndex").append(uvIndexLabel);
-    $("#uvIndex").append(uvIndexEl);
-}
 
 //display five day forecast
+function displayFiveDayForcast() {
 
+    $(fiveDayForecastEl).html("");
+
+    for (var i = 0; i < 5; i++) {
+
+        var someDate = new Date();
+        var numberOfDaysToAdd = i + 1;
+        someDate.setDate(someDate.getDate() + numberOfDaysToAdd); 
+        var dd = someDate.getDate();
+        var mm = someDate.getMonth() + 1;
+        var y = someDate.getFullYear();
+
+        var futureDates = mm + '/'+ dd + '/'+ y;
+        
+
+    var fiveDayCardEl = $("<div>").attr("class", "card forecastBox");
+    var indexNumber = 7 + (8 * i);
+    var forecastIcon = fiveDayForecastObj.list[indexNumber].weather[0].icon;
+    var forecastIconImg = $("<img>").attr("src", "https://openweathermap.org/img/w/" + forecastIcon + ".png").attr("id", "forcastImgIcon");
+    var temperature = fiveDayForecastObj.list[indexNumber].main.temp_max;
+    var humidity = fiveDayForecastObj.list[indexNumber].main.humidity;
+
+
+    // console.log(7 +(8 * i));
+    $(fiveDayCardEl).append(futureDates);
+    $(fiveDayCardEl).append(forecastIconImg);
+    $(fiveDayCardEl).append("Temp: " + temperature + " \u00B0F ");
+    $(fiveDayCardEl).append("Humidity: " + humidity + "%");
+
+    $(fiveDayForecastEl).append(fiveDayCardEl);
+      }
+}
 
 //get current date
 function getCurrentDate () {
